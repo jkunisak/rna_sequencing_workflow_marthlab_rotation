@@ -3,24 +3,24 @@ Dr. Gabor Marth Lab Rotation - Proposed RNA Sequencing Analysis Pipeline
 
 This is a proposed analysis pipeline to perform gene-level differential expression (DE) and gene set enrichment analysis (GSEA) on bulk or single-cell RNA sequencing data. 
 
-1) Quality check on fastq files
-	a) fastqc
-2) Trim/demultiplex fastq files
-	a) trimmomatic
-3) Align reads to reference genome/transcriptome
-	a) hisat2 - genome
-	b) salmon - transcriptome (does normalization and quantification) 
-4) Normalize and quantify counts
-	a) NOISeq - normalize
-	b) alpine - gc content normalization
-	c) edgeR - rna composition/batch effects
-5) DE analysis and GSEA
-	a) DESeq2/edgeR/limma+voom/NOISeq
-	b) GSVA
+1) Quality check on fastq files <br />
+	a) fastqc <br />
+2) Trim/demultiplex fastq files <br />
+	a) trimmomatic <br />
+3) Align reads to reference genome/transcriptome <br />
+	a) hisat2 - genome <br />
+	b) salmon - transcriptome (does normalization and quantification) <br />
+4) Normalize and quantify counts <br />
+	a) NOISeq - normalize <br />
+	b) alpine - gc content normalization <br />
+	c) edgeR - rna composition/batch effects <br />
+5) DE analysis and GSEA <br />
+	a) DESeq2/edgeR/limma+voom/NOISeq <br />
+	b) GSVA <br />
 
-Directory Structure: 
-$HOME
-|-- software # (extracted files)
+Directory Structure: <br />
+$HOME <br />
+|-- software # (extracted files)<br />
 |	|-- Trimmomatic-0.38
 |	|-- salmon-0.11.1-linux_x86_64
 |-- scRNA-seq_Expression_Analysis (Set $homeDIR to this directory)
