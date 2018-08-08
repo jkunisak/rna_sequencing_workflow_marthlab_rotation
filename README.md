@@ -5,12 +5,47 @@ This is a pipeline that can use raw fastq files form either bulk or single cell 
 
 ## Getting Started
 
-To get started (assuming the user if working in the Marth lab), a few tools need to be installed. The pipeline requires that the tools be installed in a "software" that exists in the home directory. The fastqc, hisat2, samtools, and salmon modules will be used and loaded automatically when running the pipeline.
+To get started (assuming the user works in the Marth lab), a few tools need to be installed. The pipeline requires that the tools be installed in a "software" folder that exists in the home directory. The fastqc, hisat2, samtools, and salmon modules will be used and loaded automatically when running the pipeline.
 
-The first tool that needs to be installed in "trimmomatic". This is needed when analyzing data from single cell RNA sequencing to remove adapter sequences. To install trimmomatic, please use the following command:
+The first and only tool that needs to be installed in the pipeline is "trimmomatic". This is needed when analyzing data from single cell RNA sequencing to remove adapter sequences. To install trimmomatic, please use the following command:
 
+First make the software directory if it doesn't exist:
+```
+mkdir ~/software
+cd ~/software
+```
+Next, install trimmomatic (v0.38). Use the following commands to download the program from source and unzip the file:
+```
+wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.38.zip
+unzip Trimmomatic-0.38.zip
+```
 
+The next step is to orgnaize the directories. Within the home directory ($homeDIR), there must exist a parent directory that contains a directory of fastq files, an output directory, a directory for the reference files, and a scripts directory that houses the scripts used in the pipeline.
+1) Copy the raw fastq files into the fastq_files directory (seeo below)
+2) Subdirectories in the output folder will be made automatically by the pipeline
+3) Reference files that need to be included are a reference genome file, reference transcriptome file, and index files for alignment. Please see commands below to obtain and index these files.
+4) the scripts directory contains all of the R scripts that the pipeline uses. Get these files from the github repo.
 
+See the commands below to make and supply files to the directory:
+```
+mkdir ~/$homdDIR/fastq_files
+mkdir ~/$homdDIR/output
+mkdir ~/$homdDIR/reference
+mkdir ~/$homdDIR/scripts
+
+## Get the reference genome file (build 37)
+
+## Get the reference transcriptome file (build 37)
+
+## Build the hisat2 index file
+module load hisat2
+hisat2_extract_splice_sites.py ~/scRNA-seq_Expression_Analysis/reference/GRCh37_gtf/Homo_sapiens.GRCh37.75.gtf > ~/scRNA-seq_Expression_Analysis/reference/hisat2/GRCh37.splicesite
+hisat2_extract_exons.py ~/scRNA-seq_Expression_Analysis/reference/GRCh37_gtf/Homo_sapiens.GRCh37.75.gtf > ~/scRNA-seq_Expression_Analysis/reference/hisat2/GRCh37.exon
+hisat2-build --ss ~/scRNA-seq_Expression_Analysis/reference/hisat2/GRCh37.splicesite --exon ~/scRNA-seq_Expression_Analysis/reference/hisat2/GRCh37.exon ~/scRNA-seq_Expression_Analysis/reference/hg19_fasta/hg19.fa test
+
+## Build the salmon index file
+~/software/salmon-0.11.1-linux_x86_64/bin/salmon index -t $homeDIR/reference/cdna_fasta/Homo_sapiens.GRCh37.75.cdna.all.fa -i $homeDIR/reference/salmon_reference/salmon_transcript_index --type quasi -k 31
+```
 
 Required input parameters include:
 1) Raw fastq files
