@@ -2,6 +2,9 @@
 
 This is a pipeline that can use raw fastq files form either bulk or single cell rna sequencing. The outputs will include a gene-level differential expression matrix ([DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html)) as well as a list of differentially activated pathways identified through a Gene Set Enrichment Analysis ([GSEA](http://software.broadinstitute.org/gsea/)). The pipeline also includes steps for removal of adapter features ([trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic)), demultiplexing in the case of single cell sequencing, genomic/transcriptomic alignment ([Hisat2](https://ccb.jhu.edu/software/hisat2/manual.shtml)/[Salmon](https://salmon.readthedocs.io/en/latest/salmon.html) respectively), filtering of mapped reads ([samtools](http://www.htslib.org/doc/samtools.html)), and normalization ([Salmon](https://salmon.readthedocs.io/en/latest/salmon.html)/[NOISeq](https://www.bioconductor.org/packages/devel/bioc/vignettes/NOISeq/inst/doc/NOISeq.pdf)/[edgeR](https://www.bioconductor.org/packages/devel/bioc/vignettes/edgeR/inst/doc/edgeRUsersGuide.pdf)).
 
+The basic workflow of the pipeline is depicted below:
+
+
 ## Getting Started
 ### Installing Necessary Software
 To get started (assuming the user works in the Marth lab), a few tools need to be installed. The pipeline requires that the tools be installed in a "software" folder that exists in the home directory. The `fastqc`, `hisat2`, `samtools`, and `salmon` modules will be used and loaded automatically when running the pipeline.
@@ -11,16 +14,17 @@ The first tool that needs to be installed is `trimmomatic`. This is needed when 
 First make the software directory if it doesn't exist:
 ```
 mkdir ~/software
+```
+Next, install `trimmomatic` (v0.38) in the `software` directory. Use the following commands to download the program from source and unzip the file:
+```
 cd ~/software
-```
-Next, install `trimmomatic` (v0.38). Use the following commands to download the program from source and unzip the file:
-```
 wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.38.zip
 unzip Trimmomatic-0.38.zip
 ```
 
 The second tool that needs to be installed is the most up-to-date version of `salmon`. Please refer to https://salmon.readthedocs.io/en/latest/building.html#installation for more specific installation instructions.
 ```
+cd ~/software
 wget https://github.com/COMBINE-lab/salmon/releases/download/v0.11.2/salmon-0.11.2-linux_x86_64.tar.gz
 tar -xvf salmon-0.11.2-linux_x86_64.tar.gz
 cd salmon_reference
