@@ -9,7 +9,7 @@ The basic workflow of the pipeline is depicted below:
 ### Installing Necessary Software
 To get started (assuming the user works in the Marth lab), a few tools need to be installed. The pipeline requires that the tools be installed in a `software` folder that exists in the home directory (`~`). The `fastqc`, `hisat2`, and `samtools`modules will be used and loaded automatically when running the pipeline.
 
-The first tool that needs to be installed is `trimmomatic`. This is needed when analyzing data from single cell RNA sequencing to remove adapter sequences. To install `trimmomatic`, please use the following command:
+The first tool that needs to be installed is `trimmomatic` to remove adapter sequences from single cell rna sequencing data. To install `trimmomatic`, please use the following command:
 
 First make the software directory if it doesn't exist:
 ```
