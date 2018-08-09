@@ -4,7 +4,7 @@ Dr. Gabor Marth Lab Rotation - Proposed RNA Sequencing Analysis Pipeline
 This is a pipeline that can use raw fastq files form either bulk or single cell rna sequencing. The outputs will include a gene-level differential expression matrix (`DESeq2`) as well as a list of differentially activated pathways identified through a Gene Set Enrichment Analysis (`GSEA`). The pipeline also includes steps for removal of adapter features ([trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic)), demultiplexing in the case of single cell sequencing, genomic/transcriptomic alignment ([Hisat2](https://ccb.jhu.edu/software/hisat2/manual.shtml)/[Salmon](https://salmon.readthedocs.io/en/latest/salmon.html) respectively), filtering of mapped reads ([samtools](http://www.htslib.org/doc/samtools.html)), and normalization ([Salmon](https://salmon.readthedocs.io/en/latest/salmon.html)/[NOISeq](https://www.bioconductor.org/packages/devel/bioc/vignettes/NOISeq/inst/doc/NOISeq.pdf)/[edgeR](https://www.bioconductor.org/packages/devel/bioc/vignettes/edgeR/inst/doc/edgeRUsersGuide.pdf)).
 
 ## Getting Started
-
+### Installing Necessary Software
 To get started (assuming the user works in the Marth lab), a few tools need to be installed. The pipeline requires that the tools be installed in a "software" folder that exists in the home directory. The `fastqc`, `hisat2`, `samtools`, and `salmon` modules will be used and loaded automatically when running the pipeline.
 
 The first tool that needs to be installed is `trimmomatic`. This is needed when analyzing data from single cell RNA sequencing to remove adapter sequences. To install `trimmomatic`, please use the following command:
@@ -31,6 +31,7 @@ make
 make install
 ```
 
+### Establish Directory Structure
 The next step is to orgnaize the directories. Within the home directory (`$homeDIR`), there must exist a parent directory that contains a directory of fastq files, an output directory, a directory for the reference files, and a scripts directory that houses the scripts used in the pipeline.
 1) Copy the raw fastq files into the `fastq_files` directory (see below)
 2) Subdirectories in the `output` folder will be made automatically by the pipeline
@@ -74,44 +75,44 @@ hisat2-build --ss ~/scRNA-seq_Expression_Analysis/reference/hisat2/GRCh37.splice
 ~/software/salmon-0.11.1-linux_x86_64/bin/salmon index -t $homeDIR/reference/cdna_fasta/Homo_sapiens.GRCh37.75.cdna.all.fa -i $homeDIR/reference/salmon_reference/salmon_transcript_index --type quasi -k 31
 ```
 
-Required input parameters include:
+### Required input parameters
 ```
 homeDIR=~/rna_analysis/
 trimmomaticFastaPath=~/
 ```
-
-Example command:
+## Running the Tests
+###Example command:
 ```
 bash ~/$homeDIR/scripts/draft1.sh $homeDIR ""
 ```
 
-Directory Structure: <br />
-$HOME <br />
-|-- software (extracted files) <br />
-|-------|-- Trimmomatic-0.38 <br />
-|-------|-- salmon-0.11.1-linux_x86_64 <br />
-|-- scRNA-seq_Expression_Analysis (Set $homeDIR to this directory) <br />
-|-------|-- fastq_files <br />
-|-------|-------|-- This directory contains all of the raw fastq files with ${sampleName}_1.fq.gz format <br />
-|-------|-- output <br />
-|-------|-------|-- fastqc_output <br />
-|-------|-------|-- trimmed_fastq_files <br />
-|-------|-------|-- trimmed_fastqc <br />
-|-------|-------|-- hisat2_alignment <br />
-|-------|-------|-- hisat2_alignment_coverage_metrics <br />
-|-------|-------|-- samtools_flagstat <br />
-|-------|-------|-- featureCounts <br />
-|-------|-------|-- salmon <br />
-|-------|-------|-- DESeq2 <br />
-|-------|-- reference <br />
-|-------|-------|-- cdna_fasta <br />
-|-------|-------|-- GRCH37_gtf <br />
-|-------|-------|-- hg19_fasta <br />
-|-------|-------|-- hisat2 <br />
-|-------|-------|-- salmon_reference <br />
-|-------|-- scripts <br />
-|-------|-------|-- adapter_detection.R <br />
-|-------|-------|-- create_batch_file.R <br />
-|-------|-------|-- Rsubread_featureCounts.R <br />
-|-------|-------|-- NOISeq.R <br />
-|-------|-------|-- Rlibs (R library directory with all of the installed packages) <br />
+Directory Structure:
+$homeDIR
+|-- software (extracted files)
+|-------|-- Trimmomatic-0.38
+|-------|-- salmon-0.11.1-linux_x86_64
+|-- scRNA-seq_Expression_Analysis (Set $homeDIR to this directory)
+|-------|-- fastq_files
+|-------|-------|-- This directory contains all of the raw fastq files with ${sampleName}_1.fq.gz format
+|-------|-- output
+|-------|-------|-- fastqc_output 
+|-------|-------|-- trimmed_fastq_files
+|-------|-------|-- trimmed_fastqc
+|-------|-------|-- hisat2_alignment
+|-------|-------|-- hisat2_alignment_coverage_metrics
+|-------|-------|-- samtools_flagstat
+|-------|-------|-- featureCounts
+|-------|-------|-- salmon
+|-------|-------|-- DESeq2
+|-------|-- reference
+|-------|-------|-- cdna_fasta
+|-------|-------|-- GRCH37_gtf
+|-------|-------|-- hg19_fasta
+|-------|-------|-- hisat2
+|-------|-------|-- salmon_reference
+|-------|-- scripts
+|-------|-------|-- adapter_detection.R
+|-------|-------|-- create_batch_file.R
+|-------|-------|-- Rsubread_featureCounts.R
+|-------|-------|-- NOISeq.R
+|-------|-------|-- Rlibs (R library directory with all of the installed packages)
