@@ -60,7 +60,7 @@ The next step is to orgnaize the directories. Within the home directory (`$homeD
 1) Copy the raw fastq files into the `fastq_files` directory (see below)
 2) Subdirectories in the `output` folder will be made automatically by the pipeline
 3) Files in the `reference` directory include the reference genome, transcriptome, and index files for alignment. Please see commands below to obtain and index these files.
-4) `Scripts` directory contains all of the R scripts that the pipeline uses. Get these files from the GitHub repo.
+4) `scripts` directory contains all of the R scripts that the pipeline uses. Get these files from the GitHub repo.
 
 See the commands below to make and supply the necessary files to the directory:
 ```
