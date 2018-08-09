@@ -31,6 +31,12 @@ make
 make install
 ```
 
+#### Defining the R library
+Follow the instructions provided [here](https://clas.uiowa.edu/linux/help/applications/rpackage) to create a R library folder. Once you create the `Rlibs` folder, copy the contents of the `Rlibs` directory provided on this GitHub page.
+```
+cp $github_Rlibs_directory $new_Rlibs_directory
+```
+
 ### Establish Directory Structure
 The next step is to orgnaize the directories. Within the home directory (`$homeDIR`), there must exist a parent directory that contains a directory of fastq files, an output directory, a directory for the reference files, and a scripts directory that houses the scripts used in the pipeline.
 1) Copy the raw fastq files into the `fastq_files` directory (see below)
