@@ -46,7 +46,7 @@ A list of the necessary packages include:
 8) [GSVA](https://bioconductor.org/packages/release/bioc/html/GSVA.html)
 9) [genefilter](https://bioconductor.org/packages/release/bioc/html/genefilter.html)
 10) [limma](https://bioconductor.org/packages/release/bioc/html/limma.html)
-11) [MSigDB](https://github.com/oganm/MSigDB) ==> requires `[dplyr](https://cran.r-project.org/web/packages/dplyr/dplyr.pdf)` to install
+11) [MSigDB](https://github.com/oganm/MSigDB) ==> requires [dplyr](https://cran.r-project.org/web/packages/dplyr/dplyr.pdf) to install
 12) [biomaRt](https://bioconductor.org/packages/release/bioc/html/biomaRt.html)
 13) [org.Hs.eg.db](https://bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html)
 14 [NOISeq](https://bioconductor.org/packages/release/bioc/html/NOISeq.html)
