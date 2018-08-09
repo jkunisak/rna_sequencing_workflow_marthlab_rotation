@@ -67,14 +67,16 @@ rsync -av rsync://ftp.ensembl.org/ensembl/pub/release-75/gtf/homo_sapiens/Homo_s
 
 ## Build the hisat2 index file
 module load hisat2
-hisat2_extract_splice_sites.py ~/scRNA-seq_Expression_Analysis/reference/GRCh37_gtf/Homo_sapiens.GRCh37.75.gtf > ~/scRNA-seq_Expression_Analysis/reference/hisat2/GRCh37.splicesite
-hisat2_extract_exons.py ~/scRNA-seq_Expression_Analysis/reference/GRCh37_gtf/Homo_sapiens.GRCh37.75.gtf > ~/scRNA-seq_Expression_Analysis/reference/hisat2/GRCh37.exon
-hisat2-build --ss ~/scRNA-seq_Expression_Analysis/reference/hisat2/GRCh37.splicesite --exon ~/scRNA-seq_Expression_Analysis/reference/hisat2/GRCh37.exon ~/scRNA-seq_Expression_Analysis/reference/hg19_fasta/hg19.fa test
+mkdir $homeDIR/reference/hisat2
+hisat2_extract_splice_sites.py $homeDIR/reference/GRCh37_gtf/Homo_sapiens.GRCh37.75.gtf > $homeDIR/reference/hisat2/GRCh37.splicesite
+hisat2_extract_exons.py $homeDIR/reference/GRCh37_gtf/Homo_sapiens.GRCh37.75.gtf > $homeDIR/reference/hisat2/GRCh37.exon
+hisat2-build --ss $homeDIR/reference/hisat2/GRCh37.splicesite --exon $homeDIR/reference/hisat2/GRCh37.exon ~/scRNA-seq_Expression_Analysis/reference/hg19_fasta/hg19.fa $homeDIR/reference/hisat2/test
 
 ## Build the salmon index file
+mkdir $homeDIR/reference/salmon_reference
 ~/software/salmon-0.11.1-linux_x86_64/bin/salmon index -t $homeDIR/reference/cdna_fasta/Homo_sapiens.GRCh37.75.cdna.all.fa -i $homeDIR/reference/salmon_reference/salmon_transcript_index --type quasi -k 31
 ```
-Directory Structure:
+Directory Structure: <br />
 $homeDIR <br />
 |-- software (extracted files) <br />
 |-------|-- Trimmomatic-0.38 <br />
