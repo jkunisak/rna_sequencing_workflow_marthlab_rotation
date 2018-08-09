@@ -146,6 +146,7 @@ bash ~/$homeDIR/scripts/draft1.sh $homeDIR NULL
 ```
 
 ## Useful Papers and Resources to Better Understand RNA Sequencing
-https://hemberg-lab.github.io/scRNA.seq.course/tabula-muris.html
-http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0190152
-https://github.com/griffithlab/rnaseq_tutorial
+https://hemberg-lab.github.io/scRNA.seq.course/tabula-muris.html <br />
+http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0190152 <br />
+https://github.com/griffithlab/rnaseq_tutorial <br />
+https://www.rna-seqblog.com/rpkm-fpkm-and-tpm-clearly-explained/ <br /> 
