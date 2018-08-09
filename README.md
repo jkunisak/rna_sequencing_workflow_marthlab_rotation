@@ -1,41 +1,57 @@
 # rna_sequencing_workflow_marthlab_rotation
 
 Dr. Gabor Marth Lab Rotation - Proposed RNA Sequencing Analysis Pipeline
-This is a pipeline that can use raw fastq files form either bulk or single cell rna sequencing. The outputs will include a gene-level differential expression matrix (DESeq2) as well as a list of differentially activated pathways identified through a Gene Set Enrichment Analysis (GSEA). The pipeline also includes steps for removal of adapter features ([trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic)), demultiplexing in the case of single cell sequencing, genomic/transcriptomic alignment ([Hisat2](https://ccb.jhu.edu/software/hisat2/manual.shtml)/[Salmon](https://salmon.readthedocs.io/en/latest/salmon.html) respectively), filtering of mapped reads ([samtools](http://www.htslib.org/doc/samtools.html)), and normalization ([Salmon](https://salmon.readthedocs.io/en/latest/salmon.html)/[NOISeq](https://www.bioconductor.org/packages/devel/bioc/vignettes/NOISeq/inst/doc/NOISeq.pdf)/[edgeR](https://www.bioconductor.org/packages/devel/bioc/vignettes/edgeR/inst/doc/edgeRUsersGuide.pdf)).
+This is a pipeline that can use raw fastq files form either bulk or single cell rna sequencing. The outputs will include a gene-level differential expression matrix (`DESeq2`) as well as a list of differentially activated pathways identified through a Gene Set Enrichment Analysis (`GSEA`). The pipeline also includes steps for removal of adapter features ([trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic)), demultiplexing in the case of single cell sequencing, genomic/transcriptomic alignment ([Hisat2](https://ccb.jhu.edu/software/hisat2/manual.shtml)/[Salmon](https://salmon.readthedocs.io/en/latest/salmon.html) respectively), filtering of mapped reads ([samtools](http://www.htslib.org/doc/samtools.html)), and normalization ([Salmon](https://salmon.readthedocs.io/en/latest/salmon.html)/[NOISeq](https://www.bioconductor.org/packages/devel/bioc/vignettes/NOISeq/inst/doc/NOISeq.pdf)/[edgeR](https://www.bioconductor.org/packages/devel/bioc/vignettes/edgeR/inst/doc/edgeRUsersGuide.pdf)).
 
 ## Getting Started
 
-To get started (assuming the user works in the Marth lab), a few tools need to be installed. The pipeline requires that the tools be installed in a "software" folder that exists in the home directory. The fastqc, hisat2, samtools, and salmon modules will be used and loaded automatically when running the pipeline.
+To get started (assuming the user works in the Marth lab), a few tools need to be installed. The pipeline requires that the tools be installed in a "software" folder that exists in the home directory. The `fastqc`, `hisat2`, `samtools`, and `salmon` modules will be used and loaded automatically when running the pipeline.
 
-The first and only tool that needs to be installed in the pipeline is "trimmomatic". This is needed when analyzing data from single cell RNA sequencing to remove adapter sequences. To install trimmomatic, please use the following command:
+The first and only tool that needs to be installed in the pipeline is `trimmomatic`. This is needed when analyzing data from single cell RNA sequencing to remove adapter sequences. To install `trimmomatic`, please use the following command:
 
 First make the software directory if it doesn't exist:
 ```
 mkdir ~/software
 cd ~/software
 ```
-Next, install trimmomatic (v0.38). Use the following commands to download the program from source and unzip the file:
+Next, install `trimmomatic` (v0.38). Use the following commands to download the program from source and unzip the file:
 ```
 wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.38.zip
 unzip Trimmomatic-0.38.zip
 ```
 
-The next step is to orgnaize the directories. Within the home directory ($homeDIR), there must exist a parent directory that contains a directory of fastq files, an output directory, a directory for the reference files, and a scripts directory that houses the scripts used in the pipeline.
-1) Copy the raw fastq files into the fastq_files directory (seeo below)
-2) Subdirectories in the output folder will be made automatically by the pipeline
-3) Reference files that need to be included are a reference genome file, reference transcriptome file, and index files for alignment. Please see commands below to obtain and index these files.
-4) the scripts directory contains all of the R scripts that the pipeline uses. Get these files from the github repo.
+The next step is to orgnaize the directories. Within the home directory (`$homeDIR`), there must exist a parent directory that contains a directory of fastq files, an output directory, a directory for the reference files, and a scripts directory that houses the scripts used in the pipeline.
+1) Copy the raw fastq files into the `fastq_files` directory (see below)
+2) Subdirectories in the `output` folder will be made automatically by the pipeline
+3) Files in the `reference` directory include the reference genome, transcriptome, and index files for alignment. Please see commands below to obtain and index these files.
+4) `Scripts` directory contains all of the R scripts that the pipeline uses. Get these files from the GitHub repo.
 
-See the commands below to make and supply files to the directory:
+See the commands below to make and supply the necessary files to the directory:
 ```
-mkdir ~/$homdDIR/fastq_files
-mkdir ~/$homdDIR/output
-mkdir ~/$homdDIR/reference
-mkdir ~/$homdDIR/scripts
+mkdir ~/$homeDIR/fastq_files
+mkdir ~/$homeDIR/output
+mkdir ~/$homeDIR/reference
+mkdir ~/$homeDIR/scripts
 
 ## Get the reference genome file (build 37)
+mkdir ~/$homeDIR/reference/hg19_fasta
+cd ~/$homeDIR/reference/hg19_fasta
+echo {1..22} | parallel --eta -j+0 'rsync -avzP rsync://hgdownload.cse.ucsc.edu/goldenPath/hg19/chromosomes/chr{}.fa.gz ~/$homeDIR/reference/hg19_fasta/'
+cat
+ ~/$homeDIR/reference/hg19_fasta/*.fa.gz > ~/$homeDIR/reference/hg19_fasta/hg19.fa
+rm -rf ~/$homeDIR/reference/hg19_fasta/*.fa.gz
 
-## Get the reference transcriptome file (build 37)
+## Index the reference genome file
+samtools faidx ~/$homeDIR/reference/hg19_fasta/hg19.fa
+
+## Get the reference transcriptome file (build 37: gtf and cdna fasta)
+mkdir ~/$homeDIR/reference/cdna_fasta
+cd ~/$homeDIR/reference/cdna_fasta
+rsync -av rsync://ftp.ensembl.org/ensembl/pub/release-75/fasta/homo_sapiens/cdna/*
+gunzip *.gz
+
+cd ~/$homeDIR/reference/GRCH37_gtf
+rsync -av rsync://ftp.ensembl.org/ensembl/pub/release-75/gtf/homo_sapiens/Homo_sapiens.GRCh37.75.gtf.gz
 
 ## Build the hisat2 index file
 module load hisat2
@@ -48,26 +64,15 @@ hisat2-build --ss ~/scRNA-seq_Expression_Analysis/reference/hisat2/GRCh37.splice
 ```
 
 Required input parameters include:
-1) Raw fastq files
-2)
+```
+homeDIR=~/rna_analysis/
+trimmomaticFastaPath=~/
+```
 
-Additional options:
-1)
-
-1) Quality check on fastq files <br />
-	a) fastqc <br />
-2) Trim/demultiplex fastq files <br />
-	a) trimmomatic <br />
-3) Align reads to reference genome/transcriptome <br />
-	a) hisat2 - genome <br />
-	b) salmon - transcriptome (does normalization and quantification) <br />
-4) Normalize and quantify counts <br />
-	a) NOISeq - normalize <br />
-	b) alpine - gc content normalization <br />
-	c) edgeR - rna composition/batch effects <br />
-5) DE analysis and GSEA <br />
-	a) DESeq2/edgeR/limma+voom/NOISeq <br />
-	b) GSVA <br />
+Example command:
+```
+bash ~/$homeDIR/scripts/draft1.sh $homeDIR ""
+```
 
 Directory Structure: <br />
 $HOME <br />
