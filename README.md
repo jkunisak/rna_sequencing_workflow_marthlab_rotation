@@ -74,20 +74,8 @@ hisat2-build --ss ~/scRNA-seq_Expression_Analysis/reference/hisat2/GRCh37.splice
 ## Build the salmon index file
 ~/software/salmon-0.11.1-linux_x86_64/bin/salmon index -t $homeDIR/reference/cdna_fasta/Homo_sapiens.GRCh37.75.cdna.all.fa -i $homeDIR/reference/salmon_reference/salmon_transcript_index --type quasi -k 31
 ```
-
-### Required input parameters
-```
-homeDIR=~/rna_analysis/
-trimmomaticFastaPath=~/
-```
-## Running the Tests
-###Example command:
-```
-bash ~/$homeDIR/scripts/draft1.sh $homeDIR ""
-```
-
 Directory Structure:
-$homeDIR <br /> 
+$homeDIR <br />
 |-- software (extracted files) <br />
 |-------|-- Trimmomatic-0.38 <br />
 |-------|-- salmon-0.11.1-linux_x86_64 <br />
@@ -116,3 +104,14 @@ $homeDIR <br />
 |-------|-------|-- Rsubread_featureCounts.R <br />
 |-------|-------|-- NOISeq.R <br />
 |-------|-------|-- Rlibs (R library directory with all of the installed packages) <br />
+
+### Required input parameters
+```
+homeDIR=~/rna_analysis/
+trimmomaticFastaPath=~/
+```
+## Running the Tests
+###Example command:
+```
+bash ~/$homeDIR/scripts/draft1.sh $homeDIR ""
+```
