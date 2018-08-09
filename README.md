@@ -122,7 +122,7 @@ NexteraPE-PE.fa  TruSeq2-PE.fa  TruSeq2-SE.fa  TruSeq3-PE-2.fa  TruSeq3-PE.fa  T
 ```
 
 ## Running the Tests
-###Example command:
+### Example command:
 ```
-bash ~/$homeDIR/scripts/draft1.sh $homeDIR ""
+bash ~/$homeDIR/scripts/draft1.sh $homeDIR NULL
 ```
