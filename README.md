@@ -7,7 +7,7 @@ This is a pipeline that can use raw fastq files form either bulk or single cell 
 
 To get started (assuming the user works in the Marth lab), a few tools need to be installed. The pipeline requires that the tools be installed in a "software" folder that exists in the home directory. The `fastqc`, `hisat2`, `samtools`, and `salmon` modules will be used and loaded automatically when running the pipeline.
 
-The first and only tool that needs to be installed in the pipeline is `trimmomatic`. This is needed when analyzing data from single cell RNA sequencing to remove adapter sequences. To install `trimmomatic`, please use the following command:
+The first tool that needs to be installed is `trimmomatic`. This is needed when analyzing data from single cell RNA sequencing to remove adapter sequences. To install `trimmomatic`, please use the following command:
 
 First make the software directory if it doesn't exist:
 ```
@@ -18,6 +18,17 @@ Next, install `trimmomatic` (v0.38). Use the following commands to download the 
 ```
 wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.38.zip
 unzip Trimmomatic-0.38.zip
+```
+
+The second tool that needs to be installed is the most up-to-date version of `salmon`. Please refer to https://salmon.readthedocs.io/en/latest/building.html#installation for more specific installation instructions.
+```
+wget https://github.com/COMBINE-lab/salmon/releases/download/v0.11.2/salmon-0.11.2-linux_x86_64.tar.gz
+tar -xvf salmon-0.11.2-linux_x86_64.tar.gz
+cd salmon_reference
+mkdir build
+cd build
+make
+make install
 ```
 
 The next step is to orgnaize the directories. Within the home directory (`$homeDIR`), there must exist a parent directory that contains a directory of fastq files, an output directory, a directory for the reference files, and a scripts directory that houses the scripts used in the pipeline.
