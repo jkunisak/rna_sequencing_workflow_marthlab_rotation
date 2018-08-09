@@ -36,6 +36,21 @@ Follow the instructions provided [here](https://clas.uiowa.edu/linux/help/applic
 ```
 cp $github_Rlibs_directory $new_Rlibs_directory
 ```
+A list of the necessary packages include:
+1) [data.table](https://cran.r-project.org/web/packages/data.table/data.table.pdf)
+2) [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html)
+3) [stringr](https://cran.r-project.org/web/packages/stringr/stringr.pdf)
+4) [Rsubread](https://bioconductor.org/packages/release/bioc/html/Rsubread.html)
+5) [edgeR](https://bioconductor.org/packages/release/bioc/html/edgeR.html)
+6) [tximport](https://bioconductor.org/packages/release/bioc/html/tximport.html)
+7) [GSEABase](https://bioconductor.org/packages/release/bioc/html/GSEABase.html)
+8) [GSVA](https://bioconductor.org/packages/release/bioc/html/GSVA.html)
+9) [genefilter](https://bioconductor.org/packages/release/bioc/html/genefilter.html)
+10) [limma](https://bioconductor.org/packages/release/bioc/html/limma.html)
+11) [MSigDB](https://github.com/oganm/MSigDB) ==> requires `[dplyr](https://cran.r-project.org/web/packages/dplyr/dplyr.pdf)` to install
+12) [biomaRt](https://bioconductor.org/packages/release/bioc/html/biomaRt.html)
+13) [org.Hs.eg.db](https://bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html)
+14 [NOISeq](https://bioconductor.org/packages/release/bioc/html/NOISeq.html)
 
 ### Establish Directory Structure
 The next step is to orgnaize the directories. Within the home directory (`$homeDIR`), there must exist a parent directory that contains a directory of fastq files, an output directory, a directory for the reference files, and a scripts directory that houses the scripts used in the pipeline.
