@@ -53,7 +53,7 @@ A list of the necessary packages include:
 11) [MSigDB](https://github.com/oganm/MSigDB) ==> requires [dplyr](https://cran.r-project.org/web/packages/dplyr/dplyr.pdf) to install
 12) [biomaRt](https://bioconductor.org/packages/release/bioc/html/biomaRt.html)
 13) [org.Hs.eg.db](https://bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html)
-14 [NOISeq](https://bioconductor.org/packages/release/bioc/html/NOISeq.html)
+14) [NOISeq](https://bioconductor.org/packages/release/bioc/html/NOISeq.html)
 
 ### Establish Directory Structure
 The next step is to orgnaize the directories. Within the home directory (`$homeDIR`), there must exist a parent directory that contains a directory of fastq files, an output directory, a directory for the reference files, and a scripts directory that houses the scripts used in the pipeline.
