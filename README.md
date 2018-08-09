@@ -131,7 +131,7 @@ Directory Structure: <br />
 |-------|-------|-- NOISeq.R <br />
 |-------|-------|-- Rlibs (R library directory with all of the installed packages) <br />
 
-### Required input parameters
+### Required Input Parameters
 1) `homeDIR`: defines the main directory that contains the `fastq_files`, `output`, `reference`, and `scripts` folders. The parent directory to the `homeDIR` should contain the `software` folder.
 2) `trimmomaticFastaPath`: defines the fasta file that `trimmomatic` uses to remove adapter sequences (if necessary). Defaults to NULL. Options for this parameter include the fasta files provided in the `trimmomatic/adapters/` directory within the `software` folder. The available files (n=6) are listed below:
 ```
@@ -144,3 +144,8 @@ NexteraPE-PE.fa  TruSeq2-PE.fa  TruSeq2-SE.fa  TruSeq3-PE-2.fa  TruSeq3-PE.fa  T
 ```
 bash ~/$homeDIR/scripts/draft1.sh $homeDIR NULL
 ```
+
+## Useful Papers and Resources to Better Understand RNA Sequencing
+https://hemberg-lab.github.io/scRNA.seq.course/tabula-muris.html
+http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0190152
+https://github.com/griffithlab/rnaseq_tutorial
