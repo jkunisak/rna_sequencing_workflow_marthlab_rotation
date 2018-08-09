@@ -32,7 +32,7 @@ make install
 ```
 
 #### Defining the R library
-Follow the instructions provided [here](https://clas.uiowa.edu/linux/help/applications/rpackage) to create a R library folder. Once you create the `Rlibs` folder, copy the contents of the `Rlibs` directory provided on this GitHub page.
+Follow the instructions provided [here](https://clas.uiowa.edu/linux/help/applications/rpackage) to create a R library folder. Once you create the `Rlibs` folder, copy the contents of the `Rlibs` directory provided on this GitHub page to that newly created directory.
 ```
 cp $github_Rlibs_directory $new_Rlibs_directory
 ```
@@ -83,7 +83,7 @@ mkdir $homeDIR/reference/salmon_reference
 ~/software/salmon-0.11.1-linux_x86_64/bin/salmon index -t $homeDIR/reference/cdna_fasta/Homo_sapiens.GRCh37.75.cdna.all.fa -i $homeDIR/reference/salmon_reference/salmon_transcript_index --type quasi -k 31
 ```
 Directory Structure: <br />
-$homeDIR <br />
+~/ <br />
 |-- software (extracted files) <br />
 |-------|-- Trimmomatic-0.38 <br />
 |-------|-- salmon-0.11.1-linux_x86_64 <br />
@@ -114,6 +114,12 @@ $homeDIR <br />
 |-------|-------|-- Rlibs (R library directory with all of the installed packages) <br />
 
 ### Required input parameters
+1) `homeDIR`: defines the main directory that contains the `fastq_files`, `output`, `reference`, and `scripts` folders. The parent directory to the homeDIR should contain the `software` folder.
+2) `trimmomaticFastaPath`: defines the fasta file that `trimmomatic` uses to remove adapter sequences (if necessary). Defaults to NULL. Options for this parameter include the fasta files provided in the `trimmomatic/adapters/` directory within the `software` folder. The available files (n=6) are listed below: 
+```
+ls ~/software/Trimmomatic-0.38/adapters
+NexteraPE-PE.fa  TruSeq2-PE.fa  TruSeq2-SE.fa  TruSeq3-PE-2.fa  TruSeq3-PE.fa  TruSeq3-SE.fa
+```
 ```
 homeDIR=~/rna_analysis/
 trimmomaticFastaPath=~/
